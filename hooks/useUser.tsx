@@ -63,4 +63,5 @@ export const useUser = () => {
     if(context === undefined){
         throw new Error('useUser must be within a UserContextProvider')
     }
+    return context
 }
