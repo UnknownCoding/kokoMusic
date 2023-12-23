@@ -14,6 +14,7 @@ const Library = () => {
         if(!user){
             return authModal.onOpen()
         }
+        return uploadModal.onOpen()
     }
     return (
         <div className='flex flex-col'>
