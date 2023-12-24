@@ -3,8 +3,10 @@ import React from 'react'
 import { Song } from '../../types'
 import MediaItem from './MediaItem'
 import LikeButton from './LikeButton'
+import useOnPlay from '../../hooks/useOnPlay'
 
 const SearchContent = ({songs}:{songs:Song[]}) => {
+    const onPlay = useOnPlay(songs)
     if(songs.length === 0){
         return(
             <div className='p-6 text-neutral-400 w-full'>
@@ -17,7 +19,7 @@ const SearchContent = ({songs}:{songs:Song[]}) => {
             {songs.map((sgs)=>(
                 <div key={sgs.id} className='flex items-center gap-x-4 w-full '>
                     <div className='flex-1'>
-                        <MediaItem data={sgs} onClick={()=>{}} />
+                        <MediaItem data={sgs} onClick={(id:string)=>onPlay(sgs.id)} />
                     </div>
                     <LikeButton songId={sgs.id} />
                 </div>

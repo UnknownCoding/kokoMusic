@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Song } from '../../types'
 import MediaItem from './MediaItem'
 // @ts-ignore
@@ -46,8 +46,38 @@ const PlayerContent = ({song,songUrl}:PlayerContentProps) => {
     }
 
     const [play, { pause,stop,sound }] = useSound(songUrl,{
-        volume:
+        volume:volume,
+        onplay:()=>setIsPlaying(true),
+        onended:()=>{
+            setIsPlaying(false)
+            onPlayNext()
+        },
+        onpause:()=>setIsPlaying(false),
+        format:['mp3']
     });
+
+    useEffect(()=>{
+        sound?.play()
+        return()=>{
+            sound?.unload()
+        }
+    },[sound])
+
+    const handlePlay = () => {
+        if(!isPlaying){
+            play()
+        }else{
+            pause()
+        }
+    }
+
+    const toggleMute = () => {
+        if(volume===0){
+            setVolume(1)
+        }else{
+            setVolume(0)
+        }
+    }
 
     return (
         <div className='grid grid-cols-2 md:grid-cols-3 h-full'>
@@ -58,21 +88,21 @@ const PlayerContent = ({song,songUrl}:PlayerContentProps) => {
                 </div>
             </div>
             <div className='flex md:hidden col-auto w-full items-center justify-end'>
-                <div className='h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer' onClick={()=>{}}>
+                <div className='h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer' onClick={handlePlay}>
                     <Icon size={30} className="text-black"/>
                 </div>  
             </div>
             <div className='hidden h-full md:inline-flex items-center justify-center w-full max-w-[722px] gap-x-6'>
                 <AiFillStepBackward onClick={onPlayPrev} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition"/>
-                <div className='flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer' onClick={()=>{}}>
+                <div className='flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer' onClick={handlePlay}>
                     <Icon size={30} className="text-black"/>
                 </div>
                 <AiFillStepForward onClick={onPlayNext} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition"/>
             </div>
             <div className='hidden md:inline-flex w-full justify-end pr-2'>
                 <div className='flex items-center gap-x-2 min-w-[120px]'>
-                    <VolumeIcon size={34} onClick={()=>{}} className="cursor-pointer"/>
-                    <Slider/>
+                    <VolumeIcon size={34} onClick={toggleMute} className="cursor-pointer"/>
+                    <Slider onChange={(value)=>setVolume(value)} value={volume}/>
                 </div>
             </div>
         </div>

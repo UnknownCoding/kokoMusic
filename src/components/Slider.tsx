@@ -9,7 +9,8 @@ interface SliderProps{
 
 const Slider = ({onChange,value=1}:SliderProps) => {
     const handleChange = (newValue:number[]) => {
-
+        // how does this syntax work
+        onChange?.(newValue[0])
     }
     return (
         <RadSlide.Root className='relative flex items-center select-none touch-none w-full h-10' aria-label='Volume' max={1} step={0.1} defaultValue={[1]} value={[value]} onValueChange={handleChange} >

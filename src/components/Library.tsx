@@ -7,9 +7,11 @@ import { useUser } from '../../hooks/useUser'
 import useUploadModal from '../../hooks/useUpload'
 import { Song } from '../../types'
 import MediaItem from './MediaItem'
+import useOnPlay from '../../hooks/useOnPlay'
 
 const Library = ({songs}:{songs:Song[]}) => {
     const authModal = useAuthModel();
+    const onPlay = useOnPlay(songs)
     const uploadModal = useUploadModal()
     const {user,subscription} = useUser()
     const onClick = () => {
@@ -29,7 +31,7 @@ const Library = ({songs}:{songs:Song[]}) => {
             </div>
             <div className='mt-3 flex flex-col gap-y-2 px-3'>
                 {songs.map((mp)=>(
-                    <MediaItem  onClick={()=>{}} key={mp.id} data={mp}/>
+                    <MediaItem  onClick={(id:string)=>onPlay(mp.id)} key={mp.id} data={mp}/>
                 ))}
             </div>
         </div>
