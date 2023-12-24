@@ -2,6 +2,7 @@
 import React from 'react'
 import { Song } from '../../types'
 import MediaItem from './MediaItem'
+import LikeButton from './LikeButton'
 
 const SearchContent = ({songs}:{songs:Song[]}) => {
     if(songs.length === 0){
@@ -18,7 +19,7 @@ const SearchContent = ({songs}:{songs:Song[]}) => {
                     <div className='flex-1'>
                         <MediaItem data={sgs} onClick={()=>{}} />
                     </div>
-                    {/* like button here */}
+                    <LikeButton songId={sgs.id} />
                 </div>
             ))}
         </div>
