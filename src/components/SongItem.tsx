@@ -13,7 +13,7 @@ interface SongItemProp{
 const SongItem = ({data,onClick}:SongItemProp) => {
     const imagePath = useLoadImage(data)
     return (
-        <div onClick={()=>{}} className='relative group flex flex-col items-center justify-center rounded-md overflow-hidden bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10
+        <div onClick={()=> onClick(data.id)} className='relative group flex flex-col items-center justify-center rounded-md overflow-hidden bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10
                                         transition p-3 gap-x-4 '>
             <div className='relative aspect-square w-full h-full rounded-md overflow-hidden'>
                 <Image  src={imagePath||'/images/liked.png'} alt='' fill className='object-cover object-center'/>
