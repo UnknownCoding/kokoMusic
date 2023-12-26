@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 
+
 export interface Song{
     id:string
     title:string
@@ -44,6 +45,11 @@ export interface Price{
     metadata?:Stripe.Metadata
     products?:Product
 }
+
+export interface ProductWithPrice extends Product{
+    prices?:Price[]
+}
+
 
 export interface Subsription{
     id:string

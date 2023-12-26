@@ -7,7 +7,7 @@ export const getUrl = () => {
     return url
 }
 
-export const postData = async ({url,data}:{url:string,data:{price:number}}) => {
+export const postData = async ({url,data}:{url:string,data:{price:Price}}) => {
     console.log('POST_REQUEST:',url,data)
     const res:Response = await fetch(url,{
         method:'POST',
