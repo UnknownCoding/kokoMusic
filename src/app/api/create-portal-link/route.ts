@@ -14,9 +14,9 @@ export async function POST(req:Request){
         const customer = await createOrRetrieveACustomer({uuid: user.id || '',email: user.email || ''});
         if (!customer) throw Error('Could not get customer');
         const { url } = await stripe.billingPortal.sessions.create({customer,return_url: `${getURL()}/account`});
-        return new NextResponse(JSON.stringify({ url }), {status: 200});
+        return NextResponse.json({url});
     } catch (error:any) {
-        JSON.stringify({ error: { statusCode: 500, message: error.message } }),{status: 500}
+        return new NextResponse('Internal Error',{status: 500})
     }
 
 }
